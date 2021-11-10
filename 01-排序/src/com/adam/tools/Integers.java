@@ -38,7 +38,7 @@ public class Integers {
 	}
 	
 	public static Integer[] tailAscOrder(int min, int max, int disorderCount) {
-		if (min > max) {
+		if (min > max || disorderCount > max - min) {
 			return null;
 		}
 		Integer[] array = new Integer[max - min + 1];
@@ -46,7 +46,22 @@ public class Integers {
 		for (int i = 0; i < array.length; i++) {
 			array[i] = min + i;
 		}
+		/// 没有排好序的处理disorderCount 区间[min, min+disorderCount-1]
+		for (int i = 0; i < disorderCount; i++) {
+			array[i] = min + (int)(Math.random() * disorderCount);
+		}
 		return array;
+	}
+	public static boolean isAscOrder(Integer[] array) {
+		if (array.length <= 0) {
+			return false;
+		}
+		for (int i = 1; i < array.length; i++) {
+			if (array[i-1] > array[i]) {
+				return false;
+			}
+		}
+		return true;
 	}
 	public static void print(Integer[] array) {
 		for (int i = 0; i < array.length; i++) {
