@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 import com.adam.sort.BubbleSort3;
 import com.adam.sort.HeapSort;
-import com.adam.sort.InsertionSort3;
 import com.adam.sort.MergeSort;
+import com.adam.sort.QuickSort;
 import com.adam.sort.SelectionSort;
 import com.adam.sort.Sort;
 import com.adam.tools.Asserts;
@@ -122,12 +122,15 @@ public class Main {
 	}
 
 	static void test3() {
-		Integer[] array1 = Integers.random(20000, 1, 20000);
-		testSorts(array1,
+		Integer[] array1 = Integers.random(5000, 1, 1);
+		testSorts(array1, new QuickSort(),
 //				new InsertionSort(),
 				new MergeSort(),
 //				new InsertionSort2(), 
-				new InsertionSort3(), new HeapSort(), new SelectionSort(), new BubbleSort3());
+//				new BubbleSort3(),
+//				new SelectionSort(),
+//				new InsertionSort3(),
+				new HeapSort());
 	}
 
 	static void test4() {
@@ -149,7 +152,10 @@ public class Main {
 	public static void main(String[] args) {
 //		test5();
 		test3();
-
+//		Integer[] array = Integers.same(10, 0);
+//		Integers.print(array);
+//		Integers.reverse(array, 0, 10);
+//		Integers.print(array);
 	}
 
 }
