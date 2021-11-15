@@ -3,6 +3,7 @@ package com.adam.sort;
 import java.text.DecimalFormat;
 
 import com.adam.Student;
+import com.adam.sort.cmp.ShellSort;
 
 @SuppressWarnings("unchecked")
 public abstract class Sort<E extends Comparable<E>> implements Comparable<Sort<E>> {
@@ -55,7 +56,9 @@ public abstract class Sort<E extends Comparable<E>> implements Comparable<Sort<E
 	}
 
 	private boolean isStable() {
-
+		if (this instanceof CountingSort) {
+			return true;
+		}
 		if (this instanceof ShellSort) {
 			return false;
 		}

@@ -1,4 +1,6 @@
-package com.adam.sort;
+package com.adam.sort.cmp;
+
+import com.adam.sort.Sort;
 
 /**
  * @author adam

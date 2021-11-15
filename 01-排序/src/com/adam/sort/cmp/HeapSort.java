@@ -1,4 +1,6 @@
-package com.adam.sort;
+package com.adam.sort.cmp;
+
+import com.adam.sort.Sort;
 
 public class HeapSort<E extends Comparable<E>> extends Sort<E> {
 	private int heapSize;

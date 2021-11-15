@@ -1,7 +1,9 @@
-package com.adam.sort;
+package com.adam.sort.cmp;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.adam.sort.Sort;
 
 public class ShellSort<E extends Comparable<E>> extends Sort<E> {
 
@@ -9,7 +11,6 @@ public class ShellSort<E extends Comparable<E>> extends Sort<E> {
 	protected void sort() {
 		List<Integer> stepSequence = shellStepQequence();
 		stepSequence = sedgewickStepQequence();
-		System.out.println(stepSequence);
 		for (Integer step : stepSequence) {
 			sort(step);
 		}
