@@ -4,9 +4,11 @@ import java.util.Arrays;
 
 import com.adam.sort.BubbleSort3;
 import com.adam.sort.HeapSort;
+import com.adam.sort.InsertionSort3;
 import com.adam.sort.MergeSort;
 import com.adam.sort.QuickSort;
 import com.adam.sort.SelectionSort;
+import com.adam.sort.ShellSort;
 import com.adam.sort.Sort;
 import com.adam.tools.Asserts;
 import com.adam.tools.Integers;
@@ -122,15 +124,15 @@ public class Main {
 	}
 
 	static void test3() {
-		Integer[] array1 = Integers.random(5000, 1, 1);
+		Integer[] array1 = Integers.random(30000, 1, 30000);
 		testSorts(array1, new QuickSort(),
 //				new InsertionSort(),
 				new MergeSort(),
 //				new InsertionSort2(), 
+				new ShellSort(),
 //				new BubbleSort3(),
 //				new SelectionSort(),
-//				new InsertionSort3(),
-				new HeapSort());
+				new InsertionSort3(), new HeapSort());
 	}
 
 	static void test4() {
