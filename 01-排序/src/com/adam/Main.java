@@ -3,6 +3,7 @@ package com.adam;
 import java.util.Arrays;
 
 import com.adam.sort.CountingSort;
+import com.adam.sort.RadixSort;
 import com.adam.sort.Sort;
 import com.adam.sort.cmp.BubbleSort3;
 import com.adam.sort.cmp.HeapSort;
@@ -124,14 +125,15 @@ public class Main {
 	}
 
 	static void test3() {
-		Integer[] array1 = Integers.random(30000, 1, 30000);
-//		Integer[] array1 = { 7, 3, 5, 8, 6, 4, 5 };
+		Integer[] array1 = Integers.random(30000, 1, 60000);
+//		Integer[] array1 = { 7, 3, 5, 8, 6, 4, 5, 100 };
 		testSorts(array1, new QuickSort(), new CountingSort(),
 //				new InsertionSort(),
 				new MergeSort(),
 //				new InsertionSort2(), 
 				new ShellSort(),
 //				new BubbleSort3(),
+				new RadixSort(),
 //				new SelectionSort(),
 				new InsertionSort3(), new HeapSort());
 	}
@@ -197,8 +199,8 @@ public class Main {
 
 	public static void main(String[] args) {
 //		test5();
-//		test3();
-		test6();
+		test3();
+//		test6();
 
 		System.out.println("完成");
 	}
