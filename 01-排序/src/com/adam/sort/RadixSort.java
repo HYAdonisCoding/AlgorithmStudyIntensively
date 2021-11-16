@@ -1,7 +1,7 @@
 package com.adam.sort;
 
 public class RadixSort extends Sort<Integer> {
-	@Override
+//	@Override
 	protected void sort1() {
 		// 找出最大值
 		int max = array[0];
