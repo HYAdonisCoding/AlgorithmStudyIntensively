@@ -13,7 +13,7 @@ public class UnionFind_QU extends UnionFind {
 	}
 
 	/**
-	 * 通过parent链表不断向上找,直到找到根节点
+	 * 通过parent链条不断向上找,直到找到根节点
 	 */
 	@Override
 	public int find(int v) {
