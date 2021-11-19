@@ -5,6 +5,7 @@ import com.adam.tools.Times;
 import com.adam.union.UnionFind;
 import com.adam.union.UnionFind_QF;
 import com.adam.union.UnionFind_QU;
+import com.adam.union.UnionFind_QU_R;
 import com.adam.union.UnionFind_QU_S;
 
 public class Main {
@@ -79,9 +80,10 @@ public class Main {
 		testUF(new UnionFind_QF(12));
 		testUF(new UnionFind_QU(12));
 		testUF(new UnionFind_QU_S(12));
+		testUF(new UnionFind_QU_R(12));
 	}
 
-	private static final int count = 500000;
+	private static final int count = 5000000;
 
 	static void testTime(UnionFind unionFind) {
 		Times.test(unionFind.getClass().getSimpleName(), () -> {
@@ -100,10 +102,11 @@ public class Main {
 //		testTime(new UnionFind_QF(count));
 //		testTime(new UnionFind_QU(count));
 		testTime(new UnionFind_QU_S(count));
+		testTime(new UnionFind_QU_R(count));
 	}
 
 	public static void main(String[] args) {
-//		test3();
+		test3();
 		test4();
 		System.out.println("Finish");
 	}
