@@ -7,6 +7,8 @@ import com.adam.union.UnionFind_QF;
 import com.adam.union.UnionFind_QU;
 import com.adam.union.UnionFind_QU_R;
 import com.adam.union.UnionFind_QU_R_PC;
+import com.adam.union.UnionFind_QU_R_PH;
+import com.adam.union.UnionFind_QU_R_PS;
 import com.adam.union.UnionFind_QU_S;
 
 public class Main {
@@ -124,6 +126,8 @@ public class Main {
 		testTime(new UnionFind_QU_S(count));
 		testTime(new UnionFind_QU_R(count));
 		testTime(new UnionFind_QU_R_PC(count));
+		testTime(new UnionFind_QU_R_PS(count));
+		testTime(new UnionFind_QU_R_PH(count));
 	}
 
 	public static void main(String[] args) {
