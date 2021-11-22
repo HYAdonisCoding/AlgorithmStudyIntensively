@@ -6,6 +6,7 @@ import com.adam.union.UnionFind;
 import com.adam.union.UnionFind_QF;
 import com.adam.union.UnionFind_QU;
 import com.adam.union.UnionFind_QU_R;
+import com.adam.union.UnionFind_QU_R_PC;
 import com.adam.union.UnionFind_QU_S;
 
 public class Main {
@@ -83,9 +84,28 @@ public class Main {
 		testUF(new UnionFind_QU_R(12));
 	}
 
-	private static final int count = 5000000;
+	private static final int count = 500000;
 
 	static void testTime(UnionFind unionFind) {
+
+		unionFind.union(0, 1);
+		unionFind.union(0, 3);
+		unionFind.union(0, 4);
+		unionFind.union(2, 3);
+		unionFind.union(2, 5);
+
+		unionFind.union(6, 7);
+
+		unionFind.union(8, 10);
+		unionFind.union(9, 10);
+		unionFind.union(9, 11);
+
+		Asserts.test(unionFind.isSame(6, 7) == true);
+		Asserts.test(unionFind.isSame(8, 5) == false);
+
+		unionFind.union(4, 6);
+
+		Asserts.test(unionFind.isSame(2, 7) == true);
 		Times.test(unionFind.getClass().getSimpleName(), () -> {
 			for (int i = 0; i < count; i++) {
 				unionFind.union((int) (Math.random() * count), (int) (Math.random() * count));
@@ -103,10 +123,11 @@ public class Main {
 //		testTime(new UnionFind_QU(count));
 		testTime(new UnionFind_QU_S(count));
 		testTime(new UnionFind_QU_R(count));
+		testTime(new UnionFind_QU_R_PC(count));
 	}
 
 	public static void main(String[] args) {
-		test3();
+//		test3();
 		test4();
 		System.out.println("Finish");
 	}
