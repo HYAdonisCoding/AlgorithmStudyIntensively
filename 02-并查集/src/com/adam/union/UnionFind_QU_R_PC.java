@@ -3,7 +3,7 @@ package com.adam.union;
 /**
  * Quick Union - 基于rank的优化 - 路径压缩 Path Compression
  * 
- * @author adam
+ * @author Adam
  *
  */
 public class UnionFind_QU_R_PC extends UnionFind_QU_R {
