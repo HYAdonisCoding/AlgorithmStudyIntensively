@@ -3,7 +3,33 @@ package com.adam;
 import com.adam.graph.Graph;
 import com.adam.graph.ListGraph;
 
+@SuppressWarnings("unused")
 public class Main {
+	public static void main(String[] args) {
+		testDfs();
+	}
+
+	private static void testDfs() {
+//		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) undirectedGraph(Data.DFS_01);
+//		graph.dfs(1);
+		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.DFS_02);
+//		graph.dfs("a");
+		graph.dfs("c");
+	}
+	private static void test4() {
+
+	}
+	private static void testBfs() {
+//		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) undirectedGraph(Data.BFS_01);
+//		graph.bfs("A");
+		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.BFS_02);
+//		graph.bfs(0);
+		graph.bfs(5);
+	}
+
+
+
+
 	private static void test1() {
 		ListGraph<String, Integer> graph = new ListGraph<>();
 
@@ -55,19 +81,7 @@ public class Main {
 		graph.bfs("V1");
 	}
 
-	private static void testBfs() {
-//		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) undirectedGraph(Data.BFS_01);
-//		graph.bfs("A");
-		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.BFS_02);
-//		graph.bfs(0);
-		graph.bfs(5);
-	}
-	private static void test4() {
 
-	}
-	public static void main(String[] args) {
-		testBfs();
-	}
 
 	private static Graph<Object, Double> graph() {
 		Graph<Object, Double> graph = new ListGraph<>();

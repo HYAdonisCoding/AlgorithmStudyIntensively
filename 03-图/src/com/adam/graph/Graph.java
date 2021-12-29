@@ -16,6 +16,9 @@ public interface Graph<V, E> {
 
 	void removeEdge(V from, V to);
 
-	/// 广优先搜索
+	/// 广度优先搜索
 	void bfs(V begin);
+
+	/// 深度优先搜索
+	void dfs(V begin);
 }

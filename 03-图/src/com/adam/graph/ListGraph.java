@@ -32,6 +32,27 @@ public class ListGraph<V, E> implements Graph<V, E> {
 	}
 
 	@Override
+	public void dfs(V begin) {
+		Vertex<V, E> beginVertex = vertices.get(begin);
+		if (beginVertex == null) {
+			return;
+		}
+		Queue<Vertex<V, E>> queue = new LinkedList<>();
+		dfs(beginVertex, new HashSet<>());
+	}
+
+	private void dfs(Vertex<V, E> vertex, Set<Vertex<V, E>> visitVertices) {
+		System.out.println(vertex.value);
+		visitVertices.add(vertex);
+		for (Edge<V, E> edge : vertex.outEdges) {
+			if (visitVertices.contains(edge.to)) {
+				continue;
+			}
+			dfs(edge.to, visitVertices);
+		}
+
+	}
+	@Override
 	public void bfs(V begin) {
 		Vertex<V, E> beginVertex = vertices.get(begin);
 		if (beginVertex == null) {
@@ -234,5 +255,7 @@ public class ListGraph<V, E> implements Graph<V, E> {
 		}
 
 	}
+
+
 
 }
