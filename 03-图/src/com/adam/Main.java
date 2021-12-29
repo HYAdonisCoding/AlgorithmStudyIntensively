@@ -1,20 +1,28 @@
 package com.adam;
 
 import com.adam.graph.Graph;
+import com.adam.graph.Graph.VertexVisitor;
 import com.adam.graph.ListGraph;
 
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
 		testDfs();
+//		testBfs();
 	}
 
 	private static void testDfs() {
 //		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) undirectedGraph(Data.DFS_01);
 //		graph.dfs(1);
 		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.DFS_02);
-//		graph.dfs("a");
-		graph.dfs("c");
+		graph.dfs("a", (Object v) -> {
+			System.out.println(v);
+			return false;
+
+		});
+//		graph.dfs1("a");
+//		graph.dfs("c");
+//		graph.dfs1("c");
 	}
 	private static void test4() {
 
@@ -24,7 +32,11 @@ public class Main {
 //		graph.bfs("A");
 		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.BFS_02);
 //		graph.bfs(0);
-		graph.bfs(5);
+		graph.bfs(0, (Object v) -> {
+				System.out.println(v);
+			return v.equals(2);
+
+		});
 	}
 
 
@@ -78,7 +90,15 @@ public class Main {
 		graph.addEdge("V3", "V4", 1);
 		graph.addEdge("V0", "V4", 6);
 
-		graph.bfs("V1");
+		graph.bfs("V1", new VertexVisitor<String>() {
+
+			@Override
+			public boolean visit(String v) {
+				System.out.println(v);
+
+				return v.equals(2);
+			}
+		});
 	}
 
 
