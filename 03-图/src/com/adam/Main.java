@@ -1,5 +1,6 @@
 package com.adam;
 
+import com.adam.graph.Graph;
 import com.adam.graph.ListGraph;
 
 public class Main {
@@ -54,8 +55,57 @@ public class Main {
 		graph.bfs("V1");
 	}
 
+	private static void testBfs() {
+//		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) undirectedGraph(Data.BFS_01);
+//		graph.bfs("A");
+		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.BFS_02);
+//		graph.bfs(0);
+		graph.bfs(5);
+	}
+	private static void test4() {
+
+	}
 	public static void main(String[] args) {
-		test3();
+		testBfs();
+	}
+
+	private static Graph<Object, Double> graph() {
+		Graph<Object, Double> graph = new ListGraph<>();
+		return graph;
+	}
+
+	/// 有向图
+	private static Graph<Object, Double> directedGraph(Object[][] data) {
+		Graph<Object, Double> graph = graph();
+		for (Object[] edge : data) {
+			if (edge.length == 1) {
+				graph.addVertex(edge[0]);
+			} else if (edge.length == 2) {
+				graph.addEdge(edge[0], edge[1]);
+			} else if (edge.length == 3) {
+				double weight = Double.parseDouble(edge[2].toString());
+				graph.addEdge(edge[0], edge[1], weight);
+			}
+		}
+		return graph;
+	}
+
+	/// 无向图
+	private static Graph<Object, Double> undirectedGraph(Object[][] data) {
+		Graph<Object, Double> graph = graph();
+		for (Object[] edge : data) {
+			if (edge.length == 1) {
+				graph.addVertex(edge[0]);
+			} else if (edge.length == 2) {
+				graph.addEdge(edge[0], edge[1]);
+				graph.addEdge(edge[1], edge[0]);
+			} else if (edge.length == 3) {
+				double weight = Double.parseDouble(edge[2].toString());
+				graph.addEdge(edge[0], edge[1], weight);
+				graph.addEdge(edge[1], edge[0], weight);
+			}
+		}
+		return graph;
 	}
 
 }
