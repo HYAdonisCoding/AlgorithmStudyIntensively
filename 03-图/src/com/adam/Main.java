@@ -1,16 +1,48 @@
 package com.adam;
 
 import java.util.List;
+import java.util.Set;
 
 import com.adam.graph.Graph;
+import com.adam.graph.Graph.EdgeInfo;
 import com.adam.graph.Graph.VertexVisitor;
+import com.adam.graph.Graph.WeightManager;
 import com.adam.graph.ListGraph;
 
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
-		testTopo();
+		testMst();
 //		testBfs();
+	}
+
+	private static WeightManager<Double> weightManager = new WeightManager<>() {
+
+		@Override
+		public int compare(Double w1, Double w2) {
+			// TODO Auto-generated method stub
+			return w1.compareTo(w2);
+		}
+
+		@Override
+		public Double add(Double w1, Double w2) {
+			// TODO Auto-generated method stub
+			return w1 + w2;
+		}
+
+		@Override
+		public Double zero() {
+			return null;
+		}
+	};
+
+	private static void testMst() {
+		Graph<Object, Double> graph = undirectedGraph(Data.MST_01);
+		Set<EdgeInfo<Object, Double>> set = graph.mst();
+		for (EdgeInfo<Object, Double> edgeInfo : set) {
+			System.out.println(edgeInfo);
+		}
+
 	}
 
 	private static void testTopo() {
@@ -109,7 +141,7 @@ public class Main {
 	}
 
 	private static Graph<Object, Double> graph() {
-		Graph<Object, Double> graph = new ListGraph<>();
+		Graph<Object, Double> graph = new ListGraph<>(weightManager);
 		return graph;
 	}
 
