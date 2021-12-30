@@ -1,5 +1,7 @@
 package com.adam;
 
+import java.util.List;
+
 import com.adam.graph.Graph;
 import com.adam.graph.Graph.VertexVisitor;
 import com.adam.graph.ListGraph;
@@ -7,8 +9,14 @@ import com.adam.graph.ListGraph;
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
-		testDfs();
+		testTopo();
 //		testBfs();
+	}
+
+	private static void testTopo() {
+		Graph<Object, Double> graph = directedGraph(Data.TOPO);
+		List<Object> list = graph.topologicalSort();
+		System.out.println(list);
 	}
 
 	private static void testDfs() {
@@ -24,23 +32,22 @@ public class Main {
 //		graph.dfs("c");
 //		graph.dfs1("c");
 	}
+
 	private static void test4() {
 
 	}
+
 	private static void testBfs() {
 //		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) undirectedGraph(Data.BFS_01);
 //		graph.bfs("A");
 		ListGraph<Object, Double> graph = (ListGraph<Object, Double>) directedGraph(Data.BFS_02);
 //		graph.bfs(0);
 		graph.bfs(0, (Object v) -> {
-				System.out.println(v);
+			System.out.println(v);
 			return v.equals(2);
 
 		});
 	}
-
-
-
 
 	private static void test1() {
 		ListGraph<String, Integer> graph = new ListGraph<>();
@@ -100,8 +107,6 @@ public class Main {
 			}
 		});
 	}
-
-
 
 	private static Graph<Object, Double> graph() {
 		Graph<Object, Double> graph = new ListGraph<>();

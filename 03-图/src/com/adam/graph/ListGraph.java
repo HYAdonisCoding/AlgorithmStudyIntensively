@@ -1,9 +1,11 @@
 package com.adam.graph;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
@@ -30,6 +32,38 @@ public class ListGraph<V, E> implements Graph<V, E> {
 		edges.forEach((Edge<V, E> edges) -> {
 			System.out.println(edges);
 		});
+	}
+
+	@Override
+	public List<V> topologicalSort() {
+		List<V> list = new ArrayList<>();
+		Queue<Vertex<V, E>> queue = new LinkedList<>();
+		Map<Vertex<V, E>, Integer> ins = new HashMap<>();
+		// 初始化(将度为0的节点都放入队列）
+		vertices.forEach((V v, Vertex<V, E> vertex) -> {
+			int in = vertex.inEdges.size();
+			if (in == 0) {
+				queue.offer(vertex);
+			} else {
+				ins.put(vertex, in);
+			}
+		});
+		while (!queue.isEmpty()) {
+			Vertex<V, E> vertex = queue.poll();
+			/// 放入返回结果中
+			list.add(vertex.value);
+			for (Edge<V, E> edge : vertex.outEdges) {
+				int toIn = ins.get(edge.to) - 1;
+				if (toIn == 0) {
+
+					queue.offer(edge.to);
+				} else {
+
+					ins.put(edge.to, toIn);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -350,8 +384,5 @@ public class ListGraph<V, E> implements Graph<V, E> {
 		}
 
 	}
-
-
-
 
 }

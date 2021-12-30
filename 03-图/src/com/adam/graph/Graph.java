@@ -1,5 +1,7 @@
 package com.adam.graph;
 
+import java.util.List;
+
 public interface Graph<V, E> {
 
 	int edgesSize();
@@ -22,6 +24,8 @@ public interface Graph<V, E> {
 	/// 深度优先搜索
 	void dfs(V begin, VertexVisitor<V> visitor);
 	
+	List<V> topologicalSort();
+
 	interface VertexVisitor<V> {
 		boolean visit(V v);
 	}
