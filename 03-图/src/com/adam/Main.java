@@ -1,6 +1,7 @@
 package com.adam;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.adam.graph.Graph;
@@ -12,8 +13,14 @@ import com.adam.graph.ListGraph;
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
-		testMst();
+		testSp();
 //		testBfs();
+	}
+
+	private static void testSp() {
+		Graph<Object, Double> graph = undirectedGraph(Data.SP);
+		Map<Object, Double> sp = graph.shortestPath("A");
+		System.out.println(sp);
 	}
 
 	private static WeightManager<Double> weightManager = new WeightManager<>() {

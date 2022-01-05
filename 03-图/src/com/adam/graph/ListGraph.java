@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
@@ -49,6 +50,83 @@ public class ListGraph<V, E> extends Graph<V, E> {
 		edges.forEach((Edge<V, E> edges) -> {
 			System.out.println(edges);
 		});
+	}
+
+	@Override
+	public Map<V, E> shortestPath(V begin) {
+
+		Vertex<V, E> beginVertex = vertices.get(begin);
+		if (beginVertex == null) {
+			return null;
+		}
+		Map<V, E> selectedPaths = new HashMap<>();
+		Map<Vertex<V, E>, E> paths = new HashMap<>();
+		// 初始化
+		for (Edge<V, E> edge : beginVertex.outEdges) {
+			//
+			paths.put(edge.to, edge.weight);
+		}
+		while (!paths.isEmpty()) {
+			Entry<Vertex<V, E>, E> minEntry = getMinPath(paths);
+			// minEntry离开桌面，
+			Vertex<V, E> minVertex = minEntry.getKey();
+			selectedPaths.put(minVertex.value, minEntry.getValue());
+			paths.remove(minVertex);
+			// 对他的outEdges进行松弛操作
+			for (Edge<V, E> edge : minVertex.outEdges) {
+				// 如果edge.to已经离开桌面，就没必要进行松弛操作了(或者是起点时)
+				if (selectedPaths.containsKey(edge.to.value) || edge.to.equals(beginVertex)) {
+					continue;
+				}
+				// 新的可选最短路径：beginVertex到edge.from的最短路径 + edge.weight
+				E newWeight = weightManager.add(minEntry.getValue(), edge.weight);
+
+				// 以前的最短路径：beginVertex到edge.to的最短路径
+				E oldWeight = paths.get(edge.to);
+				if (oldWeight == null || weightManager.compare(newWeight, oldWeight) < 0) {
+					paths.put(edge.to, newWeight);
+				}
+
+				relax();
+			}
+		}
+
+		return selectedPaths;
+	}
+
+	// 松弛
+	private void relax() {
+
+	}
+
+/// 从paths中挑一个最短路径
+	private Entry<Vertex<V, E>, E> getMinPath(Map<Vertex<V, E>, E> paths) {
+		Iterator<Entry<Vertex<V, E>, E>> iterator = paths.entrySet().iterator();
+		Entry<Vertex<V, E>, E> minEntry = iterator.next();
+		while (iterator.hasNext()) {
+			Entry<Vertex<V, E>, E> entry = iterator.next();
+			E weight = entry.getValue();
+			if (weightManager.compare(weight, minEntry.getValue()) < 0) {
+				minEntry = entry;
+			}
+		}
+		return minEntry;
+//		Vertex<V, E> minVertex = null;
+//		E minE = null;
+//		for (Entry<Vertex<V, E>, E> entry : paths.entrySet()) {
+//			E weight = entry.getValue();
+//			if (minE == null || weightManager.compare(weight, minE) < 0) {
+//				minVertex = entry.getKey();
+//				minE = weight;
+//			}
+//		}
+//		paths.forEach((Vertex<V, E> vertex, E weight) -> {
+//			if (weightManager.compare(weight, minE) < 0) {
+//				minVertex = vertex;
+//				minE = weight;
+//			}
+//		});
+//		return minVertex;
 	}
 
 	@Override
