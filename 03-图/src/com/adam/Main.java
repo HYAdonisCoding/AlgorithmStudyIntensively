@@ -14,7 +14,7 @@ import com.adam.graph.ListGraph;
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
-		testSp1();
+		testSp();
 //		testBfs();
 	}
 
@@ -29,8 +29,8 @@ public class Main {
 	}
 
 	private static void testSp() {
-//		Graph<Object, Double> graph = undirectedGraph(Data.SP);
-		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
+		Graph<Object, Double> graph = undirectedGraph(Data.SP);
+//		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
 		Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
 		sp.forEach((Object v, PathInfo<Object, Double> path) -> {
 			System.out.println(v + " - " + path);

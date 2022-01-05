@@ -54,7 +54,8 @@ public class ListGraph<V, E> extends Graph<V, E> {
 
 	@Override
 	public Map<V, PathInfo<V, E>> shortestPath(V begin) {
-		return bellmanFord(begin);
+//		return bellmanFord(begin);
+		return dijkstra(begin);
 	}
 
 	private Map<V, PathInfo<V, E>> bellmanFord(V begin) {
@@ -63,9 +64,9 @@ public class ListGraph<V, E> extends Graph<V, E> {
 			return null;
 		}
 		Map<V, PathInfo<V, E>> selectedPaths = new HashMap<>();
-		PathInfo<V, E> begPathInfo = new PathInfo<>();
-		begPathInfo.weight = weightManager.zero();
-		selectedPaths.put(begin, begPathInfo);
+//		PathInfo<V, E> begPathInfo = new PathInfo<>();
+//		begPathInfo.weight = weightManager.zero();
+		selectedPaths.put(begin, new PathInfo<>(weightManager.zero()));
 		int count = vertices.size() - 1;
 		for (int i = 0; i < count; i++) {// v-1次
 
@@ -129,14 +130,15 @@ public class ListGraph<V, E> extends Graph<V, E> {
 		}
 		Map<V, PathInfo<V, E>> selectedPaths = new HashMap<>();
 		Map<Vertex<V, E>, PathInfo<V, E>> paths = new HashMap<>();
+		paths.put(beginVertex, new PathInfo<>(weightManager.zero()));
 		// 初始化
-		for (Edge<V, E> edge : beginVertex.outEdges) {
-			//
-			PathInfo<V, E> pathInfo = new PathInfo<>();
-			pathInfo.weight = edge.weight;
-			pathInfo.edgeInfos.add((EdgeInfo<E, V>) edge.info());
-			paths.put(edge.to, pathInfo);
-		}
+//		for (Edge<V, E> edge : beginVertex.outEdges) {
+//			//
+//			PathInfo<V, E> pathInfo = new PathInfo<>();
+//			pathInfo.weight = edge.weight;
+//			pathInfo.edgeInfos.add((EdgeInfo<E, V>) edge.info());
+//			paths.put(edge.to, pathInfo);
+//		}
 		while (!paths.isEmpty()) {
 			Entry<Vertex<V, E>, PathInfo<V, E>> minEntry = getMinPathInfo(paths);
 			// minEntry离开桌面，

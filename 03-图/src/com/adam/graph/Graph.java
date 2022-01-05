@@ -61,6 +61,15 @@ public abstract class Graph<V, E> {
 		protected E weight;
 		protected List<EdgeInfo<E, V>> edgeInfos = new LinkedList<>();
 
+		public PathInfo() {
+			super();
+		}
+
+		public PathInfo(E weight) {
+			super();
+			this.weight = weight;
+		}
+
 		public E getWeight() {
 			return weight;
 		}
