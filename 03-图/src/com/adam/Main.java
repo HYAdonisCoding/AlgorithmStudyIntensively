@@ -14,12 +14,23 @@ import com.adam.graph.ListGraph;
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
-		testSp();
+		testSp1();
 //		testBfs();
 	}
 
+	private static void testSp1() {
+//		Graph<Object, Double> graph = undirectedGraph(Data.SP);
+		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT2);
+		Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath(0);
+		sp.forEach((Object v, PathInfo<Object, Double> path) -> {
+			System.out.println(v + " - " + path);
+		});
+
+	}
+
 	private static void testSp() {
-		Graph<Object, Double> graph = undirectedGraph(Data.SP);
+//		Graph<Object, Double> graph = undirectedGraph(Data.SP);
+		Graph<Object, Double> graph = directedGraph(Data.NEGATIVE_WEIGHT1);
 		Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
 		sp.forEach((Object v, PathInfo<Object, Double> path) -> {
 			System.out.println(v + " - " + path);
@@ -43,7 +54,7 @@ public class Main {
 
 		@Override
 		public Double zero() {
-			return null;
+			return 0.0;
 		}
 	};
 

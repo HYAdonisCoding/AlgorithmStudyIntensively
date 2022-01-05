@@ -54,7 +54,71 @@ public class ListGraph<V, E> extends Graph<V, E> {
 
 	@Override
 	public Map<V, PathInfo<V, E>> shortestPath(V begin) {
-		return dijkstra(begin);
+		return bellmanFord(begin);
+	}
+
+	private Map<V, PathInfo<V, E>> bellmanFord(V begin) {
+		Vertex<V, E> beginVertex = vertices.get(begin);
+		if (beginVertex == null) {
+			return null;
+		}
+		Map<V, PathInfo<V, E>> selectedPaths = new HashMap<>();
+		PathInfo<V, E> begPathInfo = new PathInfo<>();
+		begPathInfo.weight = weightManager.zero();
+		selectedPaths.put(begin, begPathInfo);
+		int count = vertices.size() - 1;
+		for (int i = 0; i < count; i++) {// v-1次
+
+			for (Edge<V, E> edge : edges) {
+
+				PathInfo<V, E> fromPathInfo = selectedPaths.get(edge.from.value);
+				if (fromPathInfo == null)
+					continue;
+				relaxForBellmanFord(edge, fromPathInfo, selectedPaths);
+			}
+		}
+		selectedPaths.remove(begin);
+
+		for (Edge<V, E> edge : edges) {
+
+			PathInfo<V, E> fromPathInfo = selectedPaths.get(edge.from.value);
+			if (fromPathInfo == null)
+				continue;
+			if (relaxForBellmanFord(edge, fromPathInfo, selectedPaths)) {
+				System.out.println("有负权环");
+				return selectedPaths;
+			}
+		}
+
+		return selectedPaths;
+	}
+
+	// 松弛操作 edge 需要松弛的边 fromPath edge的from的最短路径信息
+	// paths存放着其他点的最短路径信息
+	private boolean relaxForBellmanFord(Edge<V, E> edge, PathInfo<V, E> fromPath, Map<V, PathInfo<V, E>> paths) {
+		if (fromPath.weight == null) {
+			// 起点
+
+		}
+		// 新的可选最短路径：beginVertex到edge.from的最短路径 + edge.weight
+		E newWeight = weightManager.add(fromPath.weight, edge.weight);
+
+		// 以前的最短路径：beginVertex到edge.to的最短路径
+		PathInfo<V, E> oldPathInfo = paths.get(edge.to.value);
+		if (oldPathInfo != null && weightManager.compare(newWeight, oldPathInfo.weight) >= 0) {
+			return false;
+		}
+		if (oldPathInfo == null) {
+
+			oldPathInfo = new PathInfo<>();
+			paths.put(edge.to.value, oldPathInfo);
+		} else {
+			oldPathInfo.edgeInfos.clear();
+		}
+		oldPathInfo.weight = newWeight;
+		oldPathInfo.edgeInfos.addAll(fromPath.edgeInfos);
+		oldPathInfo.edgeInfos.add((EdgeInfo<E, V>) edge.info());
+		return true;
 	}
 
 	/// 不能有负权边
@@ -88,7 +152,7 @@ public class ListGraph<V, E> extends Graph<V, E> {
 					continue;
 				}
 
-				relax(edge, minPathInfo, paths);
+				relaxForDijkstra(edge, minPathInfo, paths);
 			}
 		}
 		selectedPaths.remove(begin);
@@ -108,8 +172,9 @@ public class ListGraph<V, E> extends Graph<V, E> {
 		return minEntry;
 	}
 
-	// 松弛操作 edge 需要松弛的边 fromPath edge的from的最短路径信息 paths存放着其他点（还没有离开桌面）的最短路径信息
-	private void relax(Edge<V, E> edge, PathInfo<V, E> fromPath, Map<Vertex<V, E>, PathInfo<V, E>> paths) {
+	// 松弛操作 edge 需要松弛的边 fromPath edge的from的最短路径信息
+	// paths存放着其他点（对dijkstra算法来说是 还没有离开桌面）的最短路径信息
+	private void relaxForDijkstra(Edge<V, E> edge, PathInfo<V, E> fromPath, Map<Vertex<V, E>, PathInfo<V, E>> paths) {
 		// 新的可选最短路径：beginVertex到edge.from的最短路径 + edge.weight
 		E newWeight = weightManager.add(fromPath.weight, edge.weight);
 
