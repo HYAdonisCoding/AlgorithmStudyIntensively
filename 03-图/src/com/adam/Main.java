@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.adam.graph.Graph;
 import com.adam.graph.Graph.EdgeInfo;
+import com.adam.graph.Graph.PathInfo;
 import com.adam.graph.Graph.VertexVisitor;
 import com.adam.graph.Graph.WeightManager;
 import com.adam.graph.ListGraph;
@@ -19,8 +20,11 @@ public class Main {
 
 	private static void testSp() {
 		Graph<Object, Double> graph = undirectedGraph(Data.SP);
-		Map<Object, Double> sp = graph.shortestPath("A");
-		System.out.println(sp);
+		Map<Object, PathInfo<Object, Double>> sp = graph.shortestPath("A");
+		sp.forEach((Object v, PathInfo<Object, Double> path) -> {
+			System.out.println(v + " - " + path);
+		});
+
 	}
 
 	private static WeightManager<Double> weightManager = new WeightManager<>() {
