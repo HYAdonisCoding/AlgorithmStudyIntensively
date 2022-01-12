@@ -45,6 +45,8 @@ public abstract class Graph<V, E> {
 
 	public abstract Map<V, PathInfo<V, E>> shortestPath(V begin);
 
+	public abstract Map<V, Map<V, PathInfo<V, E>>> shortestPath();
+
 	public interface WeightManager<E> {
 		int compare(E w1, E w2);
 

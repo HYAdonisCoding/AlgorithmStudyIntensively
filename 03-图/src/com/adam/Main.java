@@ -14,8 +14,19 @@ import com.adam.graph.ListGraph;
 @SuppressWarnings("unused")
 public class Main {
 	public static void main(String[] args) {
-		testSp();
+		testMultiSp();
 //		testBfs();
+	}
+
+	private static void testMultiSp() {
+		Graph<Object, Double> graph = directedGraph(Data.SP);
+		Map<Object, Map<Object, PathInfo<Object, Double>>> sp = graph.shortestPath();
+		sp.forEach((Object from, Map<Object, PathInfo<Object, Double>> paths) -> {
+			System.out.println(from + " -----------------------------");
+			paths.forEach((Object to, PathInfo<Object, Double> path) -> {
+				System.out.println(to + " - " + path);
+			});
+		});
 	}
 
 	private static void testSp1() {
