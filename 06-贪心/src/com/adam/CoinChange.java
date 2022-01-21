@@ -10,9 +10,26 @@ public class CoinChange {
 
 		Integer[] faces = { 25, 10, 5, 1 };
 
-		coinChange2(faces, 41);
+		coinChange3(faces, 41);
 		// error 20 + 20 + 1 -> 3枚
-		coinChange2(new Integer[] { 25, 20, 5, 1 }, 41);
+		coinChange3(new Integer[] { 25, 20, 5, 1 }, 41);
+	}
+
+	/**
+	 * 零钱兑换
+	 */
+	static void coinChange3(Integer[] faces, int money) {
+		Arrays.sort(faces);
+		int coins = 0, idx = faces.length - 1;
+		while (idx >= 0) {
+			while (money >= faces[idx]) {
+				money -= faces[idx];
+				coins++;
+				System.out.println(faces[idx] + "元硬币");
+			}
+			idx--;
+		}
+		System.out.println("共需要枚" + coins + "硬币");
 	}
 
 	/**
