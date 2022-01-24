@@ -24,14 +24,17 @@ public class CoinChange {
 				if (i < face) {
 					continue;
 				}
-				min = Math.min(dp[i - face], min);
+				int v = dp[i - face];
+				if (v < 0 || v >= min)
+					continue;
+				min = v;
 			}
-//			for (int j = 0; j < faces.length; j++) {
-//				if (i >= faces[j])
-//					min = Math.min(dp[i - faces[j]], min);
-//			}
+			if (min == Integer.MAX_VALUE) {
+				dp[i] = -1;
+			} else {
+				dp[i] = min + 1;
+			}
 
-			dp[i] = min + 1;
 		}
 		return dp[n];
 	}
