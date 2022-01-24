@@ -3,6 +3,7 @@ package com.adam.sort;
 import java.text.DecimalFormat;
 
 import com.adam.Student;
+import com.adam.sort.cmp.SelectionSort;
 import com.adam.sort.cmp.ShellSort;
 
 @SuppressWarnings("unchecked")
@@ -63,6 +64,9 @@ public abstract class Sort<E extends Comparable<E>> implements Comparable<Sort<E
 			return true;
 		}
 		if (this instanceof ShellSort) {
+			return false;
+		}
+		if (this instanceof SelectionSort) {
 			return false;
 		}
 		Student[] students = new Student[20];
